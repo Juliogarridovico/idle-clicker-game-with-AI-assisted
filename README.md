@@ -1,2 +1,19 @@
-# idle-clicker-game-with-AI-assisted
-In this project, I create an idle clicker, and I am assisted by same artificial intelligences to create the story, the images, and the JavaScript code with the Vue.JS framework.
+# idle-clicker-game-with-ai-assisted
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
