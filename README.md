@@ -4,6 +4,11 @@
 
 see  [the project in producction](https://idle-clicker-game-with-ai-assisted.netlify.app/)
 
+##The main idea
+Create a simple project, but assisted with the Artificial Intelligences of https://openai.com/.
+
+They will be used as support to write the code in css, java, the basic design, simple images, even the history of the game
+
 ## Project setup
 ```
 npm install
