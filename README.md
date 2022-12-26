@@ -7,7 +7,7 @@ see  [the project in producction](https://idle-clicker-game-with-ai-assisted.net
 ##The main idea
 Create a simple project, but assisted with the Artificial Intelligences of https://openai.com/.
 
-They will be used as support to write the code in css, java, the basic design, simple images, even the history of the game
+They will be used as support to write the code in HMTL, CSS, JavaScript, the basic UI design, to draw simple images, even the history of the game
 
 ## Project setup
 ```
