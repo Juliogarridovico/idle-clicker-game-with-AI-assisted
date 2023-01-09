@@ -29,3 +29,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### change history
 12/26/2022 First commit and start of production
+09/01/2023 Introduccion lore by IA and supabase
