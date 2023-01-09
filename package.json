@@ -7,6 +7,8 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.2.3",
+    "dotenv": "^16.0.3",
     "vue": "^3.2.13"
   },
   "devDependencies": {
