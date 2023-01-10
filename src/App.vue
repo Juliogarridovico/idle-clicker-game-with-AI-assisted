@@ -232,7 +232,7 @@ export default {
     },
     storageUUID() {
       let uuid = localStorage.getItem("uuid");
-      if ("uuid" in localStorage || uuid.length === 36 ) {
+      if ("uuid" in localStorage ) {
         console.log("La clave 'uuid' existe en el almacenamiento local");
       } else {
         localStorage.setItem("uuid", this.generateUUID());
