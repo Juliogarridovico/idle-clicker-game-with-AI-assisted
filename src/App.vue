@@ -1,34 +1,10 @@
 <template>
-  <div @click="increment" id="app" class="">
-    <div class="container">
-      <h1 v-bind:style="animationClick" class="title">Mago Cliker</h1>
-      <div class="game">
-        <button class="Mago magical-element">
-          <img src="./assets/mago-sin-fondo.png" alt="Mago" class="Mago-img" />
-          <span class="count">{{ count.toFixed(2) }}</span>
-          
-        </button>
-      
-        <div class="upgrades">
-          <div v-for="upgrade in upgrades" :key="upgrade.id" class="upgrade">
-            <button @click="buyUpgrade(upgrade)">
-              <!-- <img :src="upgrade.img" alt="Upgrade" class="upgrade-img"> -->
-              <span class="upgrade-line">
-                <span class="upgrade-name">{{ upgrade.name }}</span>
-                <span class="upgrade-cost"
-                  >Nivel: {{ upgrade.level }} // coste:{{
-                    upgrade.cost.toFixed(3)
-                  }}
-                </span>
-              </span>
-              <span class="upgrade-line">
-                <span class="upgrade-description">{{
-                  upgrade.description
-                }}</span>
-              </span>
-            </button>
-          </div>
-          <div class="lore">
+  <div @click="increment " id="app" class="">
+    <div>
+    
+    <div @click="modalIsVisible = false" class = "modal" v-if="modalIsVisible">
+    <div class="modal-content">
+      <div class="lore">
             <p>
               Caeron Smith, un mago que ha dedicado toda su vida a la práctica
               de la magia y ha alcanzado un gran poder y habilidad mágica.
@@ -54,6 +30,38 @@
               buscando toda su vida.
             </p>
           </div>
+    </div>
+      
+    </div>
+  </div>
+    <div class="container">
+      <h1 v-bind:style="animationClick" class="title">Mago Cliker</h1>
+      <div class="game">
+        <button class="Mago magical-element">
+          <img src="./assets/mago-sin-fondo.png" alt="Mago" class="Mago-img" />
+          <span class="count">{{ count.toFixed(2) }}</span>
+        </button>
+
+        <div class="upgrades">
+          <div v-for="upgrade in upgrades" :key="upgrade.id" class="upgrade">
+            <button @click="buyUpgrade(upgrade)">
+              <!-- <img :src="upgrade.img" alt="Upgrade" class="upgrade-img"> -->
+              <span class="upgrade-line">
+                <span class="upgrade-name">{{ upgrade.name }}</span>
+                <span class="upgrade-cost"
+                  >Nivel: {{ upgrade.level }} // coste:{{
+                    upgrade.cost.toFixed(3)
+                  }}
+                </span>
+              </span>
+              <span class="upgrade-line">
+                <span class="upgrade-description">{{
+                  upgrade.description
+                }}</span>
+              </span>
+            </button>
+          </div>
+          
         </div>
       </div>
     </div>
@@ -67,6 +75,7 @@ export default {
   components: {},
   data: function () {
     return {
+      modalIsVisible: false,
       count: 0,
       animationClick: "animation: shake 0.8s ;",
       animationControl: 0,
@@ -131,7 +140,11 @@ export default {
     };
   },
   methods: {
+    openModel(){
+      this.modalIsVisible = true
+    },
     async increment() {
+      
       this.count++;
       this.clickManual++;
       if (this.animationControl === 0) {
@@ -141,16 +154,12 @@ export default {
         this.animationControl = 0;
         this.animationClick = "animation: stop 0.1s ;";
       }
-      //     let { data: click, error } = await supabase
-      // .from('click')
-      // .select('*')
-      //     console.log(click)
     },
 
     startAutomaticUpgrade() {
       let incrementUpdate = 0;
       setInterval(() => {
-        // this.increment();
+        
         this.upgrades.forEach((upgrade) => {
           this.count = this.count + upgrade.increment;
         });
@@ -199,21 +208,44 @@ export default {
       console.log(insertValue);
       console.log(currentTime);
 
-      if (insertValue > 100 && insertValue < 210) {
+      if (insertValue > 1 && insertValue < 210) {
         console.log("inserto");
         const { data, error } = await supabase
           .from("click")
-          .insert([{ click: insertValue }]);
+          .insert([{ click: insertValue, UUID: this.storageUUID() }]);
           console.log(error)
       } else {
         console.log("nada que insertar");
-        
       }
+    },
+    generateUUID() {
+      let d = new Date().getTime();
+      let uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function (c) {
+          let r = (d + Math.random() * 16) % 16 | 0;
+          d = Math.floor(d / 16);
+          return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+        }
+      );
+      return uuid;
+    },
+    storageUUID() {
+      let uuid = localStorage.getItem("uuid");
+      if ("uuid" in localStorage || uuid.length === 36 ) {
+        console.log("La clave 'uuid' existe en el almacenamiento local");
+      } else {
+        localStorage.setItem("uuid", this.generateUUID());
+        console.log("La clave 'uuid' no existe en el almacenamiento local");
+      }
+      return uuid;    
     },
   },
   mounted() {
     this.startAutomaticUpgrade();
     this.awaitTimeInsertDB();
+    this.openModel();
+    console.log(this.storageUUID());
     
   },
 };
@@ -385,6 +417,24 @@ body {
   60% {
     transform: translateY(4px);
   }
+}
+
+/* modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
 }
 </style>
 
